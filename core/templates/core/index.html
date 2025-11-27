@@ -1,0 +1,300 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
+    <link rel="icon" href="{% static 'core/images/favicon/favicon.svg' %}">
+
+    <title>Is It Full? - Check University Study Space Occupancy</title>
+</head>
+<body>
+    <header>
+        <nav class="nav-bar">
+            <button class="logo nav-btn" data-section="home-section">
+                <img src="{% static 'core/images/favicon/favicon.svg' %}" alt="Is It Full Logo">
+            </button>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links">
+                <button class="nav-btn" data-section="how-it-works-section">How It Works</button>
+                <button class="nav-btn" data-section="universities-section">Universities</button>
+                <button class="nav-btn" data-section="faq-section">FAQ</button>
+                <button class="nav-btn" data-section="developer-section">About</button>
+            </div>
+
+            <div class="nav-actions">
+                <a href="{% url 'signin_form' %}" class="btn-signin">
+                    Sign In ↗
+                </a>
+                <a href="{% url 'signup_form' %}" class="btn-signup">
+                    Sign Up ↗
+                </a>
+            </div>
+        </nav>
+
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-nav-btn" data-section="home-section">Home</button>
+            <button class="mobile-nav-btn" data-section="how-it-works-section">How It Works</button>
+            <button class="mobile-nav-btn" data-section="universities-section">Universities</button>
+            <button class="mobile-nav-btn" data-section="faq-section">FAQ</button>
+            <button class="mobile-nav-btn" data-section="developer-section">About</button>
+            <hr>
+            <a href="{% url 'signin_form' %}">Sign In ↗</a>
+            <a href="{% url 'signup_form' %}">Sign Up ↗</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home-section" class="page-section active">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>Is It Full?</h1>
+                    <p class="hero-subtitle">Stop wondering if the library is packed. Check real-time occupancy before you head there.</p>
+                    <p class="hero-description">Students update space availability in real-time. Browse all study locations, see current occupancy levels, and help keep the community informed.</p>
+
+                    <div class="hero-steps">
+                        <div class="step">
+                            <span class="step-number">1</span>
+                            <p>Sign in with your university email</p>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">2</span>
+                            <p>Browse university study spaces with live occupancy</p>
+                        </div>
+                        <div class="step">
+                            <span class="step-number">3</span>
+                            <p>Update occupancy when you're there to help others</p>
+                        </div>
+                    </div>
+
+                    <div class="hero-actions">
+                        <a href="{% url 'signup_form' %}" class="btn-primary">Get Started</a>
+                        <a href="{% url 'signin_form' %}" class="btn-secondary">Sign In</a>
+                    </div>
+
+                    <p class="hero-note">✓ Verified students only · Real-time updates · Community-powered</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS SECTION -->
+        <section id="how-it-works-section" class="page-section">
+            <div class="content-wrapper">
+                <div class="container">
+                    <h1>How It Works</h1>
+                    <p class="section-intro">Simple, community-driven occupancy tracking</p>
+
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎓</div>
+                            <h3>University Authentication</h3>
+                            <p>Sign up using your official university email address. Only verified students can access and update occupancy information.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">📍</div>
+                            <h3>Browse Study Spaces</h3>
+                            <p>View all campus study locations—libraries, study rooms, cafeterias—with current occupancy levels updated by fellow students.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Real-Time Updates</h3>
+                            <p>When you're at a location, update the occupancy level. Your contribution helps everyone make better decisions about where to study.</p>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">⏱️</div>
+                            <h3>Always Current</h3>
+                            <p>See when each location was last updated. The more students participate, the more accurate and helpful the system becomes.</p>
+                        </div>
+                    </div>
+
+                    <div class="occupancy-levels">
+                        <h2>Occupancy Levels</h2>
+                        <div class="levels-grid">
+                            <div class="level-item level-empty">
+                                <span class="level-indicator"></span>
+                                <strong>Empty</strong>
+                                <p>Plenty of space available</p>
+                            </div>
+                            <div class="level-item level-light">
+                                <span class="level-indicator"></span>
+                                <strong>Light</strong>
+                                <p>Lots of seats available</p>
+                            </div>
+                            <div class="level-item level-moderate">
+                                <span class="level-indicator"></span>
+                                <strong>Moderate</strong>
+                                <p>Some seats available</p>
+                            </div>
+                            <div class="level-item level-full">
+                                <span class="level-indicator"></span>
+                                <strong>Full</strong>
+                                <p>Very few seats left</p>
+                            </div>
+                            <div class="level-item level-very-full">
+                                <span class="level-indicator"></span>
+                                <strong>Very Full</strong>
+                                <p>No seats available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UNIVERSITIES SECTION -->
+        <section id="universities-section" class="page-section">
+            <div class="content-wrapper">
+                <div class="container">
+                    <h1>Supported Universities</h1>
+                    <p class="section-intro">Currently serving students at participating institutions</p>
+
+                    <div class="university-status">
+                        <div class="status-card">
+                            <h3>Is your university listed?</h3>
+                            <p>Check if you can start using Is It Full right away with your university email.</p>
+                            <a href="{% url 'signup_form' %}" class="btn-secondary">Check Now</a>
+                        </div>
+
+                        <div class="status-card">
+                            <h3>Don't see your university?</h3>
+                            <p>Contact your student affairs office and ask them to join. We're always adding new universities.</p>
+                            <p class="contact-info">Or reach out to us directly and we'll help facilitate the conversation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq-section" class="page-section">
+            <div class="faq-content">
+                <div class="container">
+                    <h1>Frequently Asked Questions</h1>
+
+                    <div class="faq-list">
+                        <div class="faq-item">
+                            <h2 class="faq-question" onclick="toggleFAQ(this)">
+                                How do I know the occupancy information is accurate?
+                                <span class="faq-icon">+</span>
+                            </h2>
+                            <div class="faq-answer">
+                                <p>Occupancy is updated in real-time by verified students who are physically present at each location. Each update includes a timestamp so you can see how recent the information is. The more students who participate, the more reliable the data becomes.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h2 class="faq-question" onclick="toggleFAQ(this)">
+                                What if my university isn't supported yet?
+                                <span class="faq-icon">+</span>
+                            </h2>
+                            <div class="faq-answer">
+                                <p>We're continuously adding new universities. You can help by contacting your student affairs or IT department and asking them to partner with Is It Full. We'll work with them to get your campus set up quickly.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h2 class="faq-question" onclick="toggleFAQ(this)">
+                                How often should I update occupancy levels?
+                                <span class="faq-icon">+</span>
+                            </h2>
+                            <div class="faq-answer">
+                                <p>Update whenever you notice the occupancy has changed significantly. If you arrive at a location and the status seems outdated, take a moment to update it. Even occasional updates from various students throughout the day keep the information useful.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h2 class="faq-question" onclick="toggleFAQ(this)">
+                                Do I need to create an account?
+                                <span class="faq-icon">+</span>
+                            </h2>
+                            <div class="faq-answer">
+                                <p>Yes, you'll need to sign up with your university email address. This ensures that only verified students from your university can view and update occupancy information, keeping the data trustworthy and relevant.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h2 class="faq-question" onclick="toggleFAQ(this)">
+                                What information do you collect?
+                                <span class="faq-icon">+</span>
+                            </h2>
+                            <div class="faq-answer">
+                                <p>We only collect your university email for verification and basic account information. We don't track your location or which spaces you visit. Occupancy updates are anonymous—we only show that a verified student updated the status.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <h2 class="faq-question" onclick="toggleFAQ(this)">
+                                Can I suggest new locations to add?
+                                <span class="faq-icon">+</span>
+                            </h2>
+                            <div class="faq-answer">
+                                <p>Absolutely! We work with each university to determine which study spaces to include. If there's a popular study spot missing, let us know and we'll coordinate with your university to add it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEVELOPER/ABOUT SECTION -->
+        <section id="developer-section" class="page-section">
+            <div class="developer-content">
+                <div class="container">
+                    <h1>About Is It Full</h1>
+
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <h2>The Problem</h2>
+                            <p>Every student has asked themselves: "Is the library full right now?" Walking to university only to find no available study space wastes time and disrupts your study plans.</p>
+                        </div>
+
+                        <div class="about-card">
+                            <h2>The Solution</h2>
+                            <p>Is It Full puts real-time occupancy information in your hands. Check before you go, find alternative spaces, and contribute updates to help fellow students.</p>
+                        </div>
+
+                        <div class="about-card">
+                            <h2>Community-Powered</h2>
+                            <p>This system only works because of students like you. By updating occupancy when you're at a location, you help everyone make better decisions about where to study.</p>
+                        </div>
+                    </div>
+
+                    <div class="developer-card">
+                        <h2>Created By</h2>
+                        <h3>Dmytro Tupkalenko</h3>
+                        <p>UP FAMNIT first-year student of Data Science</p>
+
+                        <div class="social-links">
+                            <a href="https://github.com/tupkalenkodi" target="_blank" rel="noopener" class="social-link">
+                                <i class="fab fa-github"></i> GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <!-- TODO: add a cube -->
+            <p>&copy; 2025 Is It Full · Making university study spaces more accessible </p>
+        </div>
+    </footer>
+
+    <script src="{% static 'core/javascript/main.js' %}" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</body>
+</html>

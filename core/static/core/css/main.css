@@ -1,0 +1,830 @@
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Calibri, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    background: #000015;
+    color: #ffffff;
+    padding-top: 15vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-left: 1vw;
+    width: 80vw;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin-top: 1rem;
+    margin-left: 1vw;
+    width: 80vw;
+    font-size: 1.125rem;
+}
+
+ol, ul {
+    margin-left: 4vw;
+    width: 77vw;
+}
+
+li {
+    margin-top: 0.5rem;
+    font-size: 1.125rem;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #ffffff;
+    transition: text-decoration 0.2s;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   HEADER & NAVIGATION
+   ============================================ */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background: #000000;
+    border-bottom: 2px solid #222222;
+}
+
+.nav-bar {
+    height: 15vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5vw;
+}
+
+.logo {
+    display: flex;
+}
+
+.logo img {
+    height: 72px;             /* or whatever size you need */
+    width: auto;
+}
+
+
+.nav-links {
+    display: flex;
+    gap: 3vw;
+    align-items: center;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 1.5vw;
+    align-items: center;
+}
+
+.btn-signin {
+    font-family: "Dubai Light", Calibri, sans-serif;
+    font-size: 1.1875rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-signup {
+    font-family: "Dubai Light", Calibri, sans-serif;
+    font-size: 1.1875rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ffffff;
+    text-align: center;
+}
+
+.btn-signup:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* Mobile menu toggle */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle span {
+    width: 25px;
+    height: 2px;
+    background: #ffffff;
+    transition: all 0.3s;
+}
+
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: calc(15vh + 2px);
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 15vh - 2px);
+    background: #000000;
+    flex-direction: column;
+    padding-top: 10vh;
+    overflow-y: auto;
+}
+
+.mobile-menu.active {
+    display: flex;
+}
+
+.mobile-menu a {
+    font-family: "Dubai Light", Calibri, sans-serif;
+    font-size: 1.1875rem;
+    padding: 1rem 1.5vw;
+    color: #ffffff;
+}
+
+.mobile-menu hr {
+    margin: 1rem 1.5vw;
+    border: none;
+    border-top: 1px solid #222222;
+}
+
+/* ============================================
+   MAIN CONTENT
+   ============================================ */
+main {
+    min-height: calc(100vh - 15vh);
+    padding-top: 5vh;
+}
+
+.container {
+    max-width: 100%;
+}
+
+.content-wrapper {
+    padding: 2rem 0;
+}
+
+.section-intro {
+    font-size: 1.25rem;
+    color: #cccccc;
+    margin-bottom: 3rem;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+    display: flex;
+    justify-content: center; /* center horizontally */
+    align-items: center;     /* center vertically */
+    text-align: center;      /* text inside is centered */
+    flex-direction: column;  /* stack elements vertically */
+    padding: 4rem 1rem;
+    min-height: 70vh;
+}
+
+
+.hero-text  {
+    width: 100%;
+    text-align: center;
+}
+
+.hero-text h1 {
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.hero-text p {
+    width: 100%;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: #e0e0e0;
+    margin-bottom: 1rem;
+}
+
+.hero-description {
+    font-size: 1.125rem;
+    color: #cccccc;
+    margin-bottom: 2rem;
+}
+
+.hero-steps {
+    justify-content: center;
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0 2rem 0; /* remove margin-left */
+}
+
+.hero-actions {
+    margin: 2rem 0 2rem 0; /* remove margin-left */
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    background: #ffffff;
+    color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.step p {
+    margin: 0;
+    width: auto;
+    font-size: 1.125rem;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0 2rem 1vw;
+    flex-wrap: wrap;
+}
+
+.hero-note {
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: #888888;
+}
+
+.btn-primary, .btn-secondary {
+    padding: 0.75rem 2rem;
+    font-family: "Dubai Light", Calibri, sans-serif;
+    font-size: 1.125rem;
+    font-weight: bold;
+    border-radius: 0;
+    transition: all 0.3s;
+}
+
+.btn-primary {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #ffffff;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+}
+
+.btn-secondary:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
+/* ============================================
+   FEATURES GRID
+   ============================================ */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-left: 1vw;
+    width: 80vw;
+}
+
+.feature-card {
+    padding: 2rem 0;
+    border-top: 1px solid #222222;
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+    width: 100%;
+}
+
+.feature-card p {
+    color: #cccccc;
+    margin: 0;
+    width: 100%;
+}
+
+/* ============================================
+   OCCUPANCY LEVELS
+   ============================================ */
+.occupancy-levels {
+    margin-top: 4rem;
+    margin-left: 1vw;
+    width: 80vw;
+    padding-top: 3rem;
+    border-top: 1px solid #222222;
+}
+
+.occupancy-levels h2 {
+    margin: 0 0 2rem 0;
+    width: 100%;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.level-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border: 2px solid #222222;
+    transition: border-color 0.3s;
+}
+
+.level-item:hover {
+    border-color: #444444;
+}
+
+.level-indicator {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.level-empty .level-indicator {
+    background: #22c55e;
+}
+
+.level-light .level-indicator {
+    background: #84cc16;
+}
+
+.level-moderate .level-indicator {
+    background: #eab308;
+}
+
+.level-full .level-indicator {
+    background: #f97316;
+}
+
+.level-very-full .level-indicator {
+    background: #ef4444;
+}
+
+.level-item strong {
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.level-item p {
+    margin: 0;
+    width: 100%;
+    font-size: 0.875rem;
+    color: #888888;
+}
+
+/* ============================================
+   UNIVERSITIES SECTION
+   ============================================ */
+.university-status {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-left: 1vw;
+    width: 80vw;
+}
+
+.status-card {
+    padding: 2rem;
+    border: 2px solid #222222;
+    transition: border-color 0.3s;
+}
+
+.status-card:hover {
+    border-color: #444444;
+}
+
+.status-card h3 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem 0;
+    width: 100%;
+}
+
+.status-card p {
+    color: #cccccc;
+    margin: 0 0 1.5rem 0;
+    width: 100%;
+}
+
+.contact-info {
+    font-size: 1rem;
+    color: #888888;
+}
+
+.status-card .btn-secondary {
+    display: inline-block;
+    margin: 0;
+}
+
+/* ============================================
+   ABOUT SECTION
+   ============================================ */
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-left: 1vw;
+    width: 80vw;
+    margin-bottom: 3rem;
+}
+
+.about-card {
+    padding: 2rem 0;
+    border-top: 1px solid #222222;
+}
+
+.about-card h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem 0;
+    width: 100%;
+}
+
+.about-card p {
+    color: #cccccc;
+    margin: 0;
+    width: 100%;
+}
+
+/* ============================================
+   FAQ STYLES
+   ============================================ */
+.faq-content {
+    padding: 2rem 0;
+}
+
+.faq-content h1 {
+    margin-bottom: 2rem;
+}
+
+.faq-list {
+    margin-left: 1vw;
+    width: 80vw;
+}
+
+.faq-item {
+    border-top: 1px solid #222222;
+    margin-bottom: 1rem;
+}
+
+.faq-question {
+    padding: 1.5rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem;
+    margin: 0;
+    width: 100%;
+}
+
+.faq-question:hover {
+    color: #cccccc;
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: 300;
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0;
+    margin: 0;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+    padding-bottom: 1.5rem;
+}
+
+.faq-answer p {
+    color: #cccccc;
+    margin: 0 0 1rem 0;
+    width: 100%;
+}
+
+/* ============================================
+   DEVELOPER SECTION
+   ============================================ */
+.developer-content {
+    padding: 2rem 0;
+}
+
+.developer-card {
+    margin-left: 1vw;
+    width: 80vw;
+    padding-top: 2rem;
+    border-top: 1px solid #222222;
+}
+
+.developer-card h2 {
+    font-size: 1.5rem;
+    margin: 2rem 0 0.5rem 0;
+    width: 100%;
+    color: #888888;
+}
+
+.developer-card h3 {
+    font-size: 2rem;
+    margin: 0 0 0.5rem 0;
+    width: 100%;
+}
+
+.developer-card p {
+    color: #cccccc;
+    margin: 0 0 2rem 0;
+    font-size: 1.125rem;
+    width: 100%;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    padding: 0.75rem 1.5rem;
+    background: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    border: 2px solid #ffffff;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+}
+
+.social-link:hover {
+    background: #ffffff;
+    color: #000000;
+    text-decoration: none;
+}
+
+.social-link i {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+    background: #000000;
+    color: #666666;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 2px solid #222222;
+}
+
+.footer-content {
+    margin-left: 1vw;
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-content p {
+    margin: 0;
+    width: auto;
+    font-size: 1rem;
+    color: #666666;
+}
+
+/* ============================================
+   SINGLE PAGE APP STYLES
+   ============================================ */
+.page-section {
+    display: none;
+}
+
+.page-section.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navigation button styles */
+.nav-btn {
+    background: transparent;
+    border: none;
+    font-family: "Dubai Light", Calibri, sans-serif;
+    font-size: 1.1875rem;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.nav-btn:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+.logo.nav-btn {
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+.logo.nav-btn:hover {
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+.mobile-nav-btn {
+    background: transparent;
+    border: none;
+    font-family: "Dubai Light", Calibri, sans-serif;
+    font-size: 1.1875rem;
+    padding: 1rem 1.5vw;
+    color: #ffffff;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.mobile-nav-btn:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding-top: 15vh;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    p, ol, ul {
+        margin-left: 3vw;
+        width: 94vw;
+    }
+
+    ol, ul {
+        margin-left: 8vw;
+        width: 89vw;
+    }
+
+    .nav-links,
+    .nav-actions {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .hero-steps {
+        margin-left: 3vw;
+        width: 94vw;
+    }
+
+    .hero-actions {
+        margin-left: 3vw;
+        flex-direction: column;
+        width: 94vw;
+    }
+
+    .hero-actions a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .features-grid,
+    .levels-grid,
+    .university-status,
+    .about-grid,
+    .faq-list,
+    .developer-card,
+    .occupancy-levels {
+        margin-left: 3vw;
+        width: 94vw;
+    }
+
+    .levels-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .feature-card h3,
+    .feature-card p,
+    .about-card h2,
+    .about-card p,
+    .status-card h3,
+    .status-card p {
+        width: 100%;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        margin-left: 3vw;
+        width: 94vw;
+    }
+
+    .social-links {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .social-link {
+        width: 100%;
+        justify-content: center;
+    }
+}

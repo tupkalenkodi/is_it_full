@@ -1,0 +1,63 @@
+{% extends 'users/base.html' %}
+
+{% block title %}Edit Profile - PlayPal{% endblock %}
+
+{% block body %}
+    <form method="post">
+        {% csrf_token %}
+        <form method="post" action="{% url 'profile_form' %}">
+            <input type="hidden" name="action" value="signout">
+            <button type="submit">Sign Out</button>
+        </form>
+
+        <div class="center-wrapper">
+            <h1>Edit Your Profile</h1>
+        </div>
+
+        {% for field in form %}
+            <div class="center-wrapper">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            </div>
+            <div class="center-wrapper">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+                <div class="center-wrapper">
+                    <div class="field-errors">
+                        {% for error in field.errors %}
+                            <p class="error-text">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="center-wrapper">
+            <button type="submit" class="reg-log-button">Save Profile</button>
+        </div>
+
+        <div class="center-wrapper" style="margin-top: 2rem;">
+            <p>
+                <a href="{% url 'change_password' %}">Change Password</a>
+                <span class="arrow">↗</span>
+            </p>
+        </div>
+
+        <div class="center-wrapper">
+            <p>
+                <a href="{% url 'homepage' %}">← Back to Homepage</a>
+            </p>
+        </div>
+
+    </form>
+
+    {% if messages %}
+        <div class="center-wrapper">
+            <div class="messages">
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

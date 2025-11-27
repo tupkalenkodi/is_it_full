@@ -1,0 +1,247 @@
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 15vh;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    background: #ffffff;
+    color: #000000;
+    min-height: 100vh;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: normal;
+}
+
+p {
+    margin-top: 1.25rem;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #000000;
+    transition: text-decoration 0.2s;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+input,
+textarea,
+select {
+    margin-top: 0.625rem;
+    padding: 1rem;
+    width: 100%;
+    max-width: 20rem;
+    border: 2px solid #000000;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #000000;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #666666;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+label {
+    display: block;
+    color: #000000;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: bold;
+}
+
+button,
+.reg-log-button {
+    margin-top: 1.25rem;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    max-width: 20rem;
+    border: 2px solid #000000;
+    font-size: 1.25rem;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    background: #ffffff;
+    color: #000000;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover,
+.reg-log-button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* ============================================
+   LAYOUT HELPERS
+   ============================================ */
+.center-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+form {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* ============================================
+   LOGO
+   ============================================ */
+#logo {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#logo img {
+    height: 32px;
+    width: auto;
+}
+
+/* ============================================
+   ARROWS
+   ============================================ */
+.arrow {
+    color: #222222;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 0.25rem;
+}
+
+/* ============================================
+   ERROR MESSAGES (Form-level)
+   ============================================ */
+.error-messages {
+    margin-top: 2rem;
+    padding: 1rem;
+    max-width: 20rem;
+    border: 2px solid #e57373;
+    background-color: #ffcdd2;
+    list-style-position: inside;
+}
+
+.error-messages li {
+    color: #c62828;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+/* Field-level errors */
+.field-errors {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    max-width: 20rem;
+}
+
+.error-text {
+    color: #c62828;
+    font-size: 0.9rem;
+    margin: 0.25rem 0;
+    background-color: #ffcdd2;
+    padding: 0.5rem;
+    border: 1px solid #e57373;
+}
+
+/* ============================================
+   SUCCESS/INFO MESSAGES
+   ============================================ */
+.messages {
+    margin-top: 2rem;
+    max-width: 20rem;
+}
+
+.messages p {
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 2px solid;
+    font-weight: bold;
+}
+
+.messages .success {
+    background: #c8e6c9;
+    border-color: #4caf50;
+    color: #2e7d32;
+}
+
+.messages .error {
+    background: #ffcdd2;
+    border-color: #e57373;
+    color: #c62828;
+}
+
+.messages .warning {
+    background: #fff9c4;
+    border-color: #ffeb3b;
+    color: #f57f17;
+}
+
+.messages .info {
+    background: #bbdefb;
+    border-color: #2196f3;
+    color: #1565c0;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding-top: 10vh;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input,
+    textarea,
+    select,
+    button,
+    .reg-log-button,
+    .error-messages,
+    .field-errors,
+    .messages {
+        max-width: 90vw;
+    }
+
+    form {
+        padding: 1rem 0.5rem;
+    }
+}
