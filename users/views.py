@@ -1,46 +1,52 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from .forms import SignupForm, SigninForm, CustomPasswordChangeForm
+from django.views import View
+from django.contrib import messages
 
 
-def handle_signout(view_func):
-    def wrapper(request, *args, **kwargs):
-        if request.method == 'POST' and request.POST.get('action') == 'signout':
-            logout(request)
+class SignupView(View):
+    template_name = 'users/signup_form.html'
+    form_class = SignupForm
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            # 302 Found (Temporary redirect)
             return redirect('homepage')
-        return view_func(request, *args, **kwargs)
-    return wrapper
 
+        form = self.form_class()
+        # 200 OK
+        return render(request, self.template_name, {'form': form})
 
-def signup_user(request):
-    if request.user.is_authenticated:
-        return redirect('homepage')
+    def post(self, request):
+        if request.user.is_authenticated:
+            # 302 Found (Temporary redirect)
+            return redirect('homepage')
 
-    if request.method == 'POST':
-        form = SignupForm(request.POST)
+        form = self.form_class(request.POST)
         if form.is_valid():
             user = form.save()
 
-            user = authenticate(
+            authenticated_user = authenticate(
                 request,
-                username=form.cleaned_data['email'],
+                username=user.email,
                 password=form.cleaned_data['password1']
             )
 
-            if user is not None:
-                login(request, user)
+            if authenticated_user is not None:
+                login(request, authenticated_user)
+                # 302 Found (Temporary redirect)
                 return redirect('homepage')
-        else:
-            messages.error(request, 'Please correct the errors below.')
-    else:
-        form = SignupForm()
+            else:
+                messages.error(request, 'Account created. Please sign in.')
+                # 302 Found (Temporary redirect)
+                return redirect('signin_form')
 
-    return render(request, template_name='users/signup_form.html',
-                  context={'form': form})
+        # 400 Bad Request
+        return render(request, self.template_name, {'form': form}, status=400)
 
-
+# TODO: Create proper class-based views, clean the forms, templates
 def signin_user(request):
     if request.user.is_authenticated:
         return redirect('homepage')
@@ -58,6 +64,13 @@ def signin_user(request):
     return render(request, template_name='users/signin_form.html',
                   context={'form': form})
 
+def handle_signout(view_func):
+    def wrapper(request, *args, **kwargs):
+        if request.method == 'POST' and request.POST.get('action') == 'signout':
+            logout(request)
+            return redirect('homepage')
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 @login_required(login_url='signin_form')
 def change_password(request):

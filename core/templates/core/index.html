@@ -25,7 +25,7 @@
 
             <div class="nav-links">
                 <button class="nav-btn" data-section="how-it-works-section">How It Works</button>
-                <button class="nav-btn" data-section="universities-section">Universities</button>
+                <a href="{% url 'universities_browse' %}" class="nav-btn" style="text-decoration: none; color: inherit;">Universities</a>
                 <button class="nav-btn" data-section="faq-section">FAQ</button>
                 <button class="nav-btn" data-section="developer-section">About</button>
             </div>
@@ -81,6 +81,39 @@
                     </div>
 
                     <p class="hero-note">✓ Verified students only · Real-time updates · Community-powered</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="universities-section" class="page-section">
+            <div class="content-wrapper">
+                <div class="container">
+                    <h1>Supported Universities</h1>
+                    <p class="section-intro">Currently serving students at participating institutions</p>
+
+                    <div class="university-status">
+                        <div class="status-card">
+                            <h3>Browse All Universities</h3>
+                            <p>See the complete list of universities, search for yours, or add a new one.</p>
+                            <a href="{% url 'universities_browse' %}" class="btn-primary">
+                                View All Universities →
+                            </a>
+                        </div>
+
+                        <div class="status-card">
+                            <h3>Add Your University</h3>
+                            <p>Don't see your university? You can add it yourself in just a few clicks.</p>
+                            <a href="{% url 'university_add' %}" class="btn-secondary">
+                                Add University →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px;">
+                        <p style="color: #666;">
+                            📚 {{ total_universities }} universities currently supported
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>

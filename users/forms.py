@@ -43,7 +43,7 @@ class SignupForm(UserCreationForm):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
             raise ValidationError("A user with this email already exists.")
-        return email
+        return email.lower()
 
 
 class SigninForm(AuthenticationForm):

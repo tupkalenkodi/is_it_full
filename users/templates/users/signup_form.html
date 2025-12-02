@@ -1,6 +1,6 @@
 {% extends 'users/base.html' %}
 
-{% block title %}Sign Up - PLayPal{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block body %}
     <form method="post">
@@ -10,8 +10,25 @@
             <h1>Create your account</h1>
         </div>
 
+        {% if form.errors %}
+            <div class="error-messages">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
         {% for field in form %}
-            <div class="center-wrapper">{{ field }}</div>
+            <div class="center-wrapper">
+                {{ field }}
+            </div>
         {% endfor %}
 
         <div class="center-wrapper">
@@ -26,21 +43,4 @@
         </div>
 
     </form>
-
-    {% if form.errors %}
-        <div class="error-messages">
-            {% for email_errors in form.email.errors %}
-                <li>{{ email_errors }}</li>
-            {% endfor %}
-
-            {% for password1_errors in form.password1.errors %}
-                <li>{{ password1_errors }}</li>
-            {% endfor %}
-
-            {% for password_errors in form.password2.errors %}
-                <li>{{ password_errors }}</li>
-            {% endfor %}
-        </div>
-    {% endif %}
-
 {% endblock %}
