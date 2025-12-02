@@ -10,10 +10,10 @@ User = get_user_model()
 class SignupForm(UserCreationForm):
     email = forms.EmailField(
         required=True,
+        label="Email",
         widget=forms.EmailInput(attrs={
             'placeholder': 'Enter your email address',
-            'autocomplete': 'email',
-            'class': 'form-input'
+            'autocomplete': 'email'
         })
     )
 
@@ -22,8 +22,7 @@ class SignupForm(UserCreationForm):
         label='Password',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Enter your password',
-            'autocomplete': 'new-password',
-            'class': 'form-input'
+            'autocomplete': 'new-password'
         })
     )
 
@@ -32,8 +31,7 @@ class SignupForm(UserCreationForm):
         label='Confirm Password',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Confirm your password',
-            'autocomplete': 'new-password',
-            'class': 'form-input'
+            'autocomplete': 'new-password'
         })
     )
 
@@ -50,19 +48,19 @@ class SignupForm(UserCreationForm):
 
 class SigninForm(AuthenticationForm):
     username = forms.EmailField(
+        label="Email",
         widget=forms.EmailInput(attrs={
             'placeholder': 'Enter your email address',
-            'autocomplete': 'email',
-            'class': 'form-input'
+            'autocomplete': 'email'
         }),
-        label="Email"
+
     )
 
     password = forms.CharField(
+        label="Password",
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Enter your password',
-            'autocomplete': 'current-password',
-            'class': 'form-input'
+            'autocomplete': 'current-password'
         })
     )
 
@@ -72,8 +70,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         label='Current Password',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Enter your current password',
-            'autocomplete': 'current-password',
-            'class': 'form-input'
+            'autocomplete': 'current-password'
         })
     )
 
@@ -81,8 +78,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         label='New Password',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Enter your new password',
-            'autocomplete': 'new-password',
-            'class': 'form-input'
+            'autocomplete': 'new-password'
         })
     )
 
@@ -90,7 +86,6 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         label='Confirm New Password',
         widget=forms.PasswordInput(attrs={
             'placeholder': 'Confirm your new password',
-            'autocomplete': 'new-password',
-            'class': 'form-input'
+            'autocomplete': 'new-password'
         })
     )

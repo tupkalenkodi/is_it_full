@@ -4,6 +4,8 @@ from django.db import models
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
@@ -19,11 +21,9 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    email = models.EmailField(unique=True)
-    username = None
+    email = models.EmailField(unique=True, blank=False, null=False)
+    username = None # DISABLE USERNAME
 
-    # Use custom manager
     objects = CustomUserManager()
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
