@@ -1,0 +1,24 @@
+from django.urls import path
+from . import views
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # Main page - shows list and create form
+    # Maps URL: /universities/ to UniversityListView
+    path('', views.UniversityListView.as_view(), name='university_list'),
+
+    # Create new university
+    # Maps URL: /universities/create_form to UniversityCreateView
+    path('create_form', views.UniversityCreateView.as_view(), name='university_create_form'),
+
+    # Update existing university
+    # <int:pk> captures integer from URL and passes as 'pk' parameter
+    # Example: /universities/update/5 passes pk=5
+    path('update/<int:pk>', views.UniversityUpdateView.as_view(), name='university_update'),
+
+    # Delete university
+    # Example: /universities/delete/5 passes pk=5
+    path('delete/<int:pk>', views.UniversityDeleteView.as_view(), name='university_delete'),
+]

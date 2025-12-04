@@ -54,7 +54,7 @@ class UniversityBrowseView(ListView):
     Shows list with search capability and link to add new university.
     """
     model = University
-    template_name = 'core/universities_browse.html'
+    template_name = 'core/university_list.html'
     context_object_name = 'universities'
     paginate_by = 20
 

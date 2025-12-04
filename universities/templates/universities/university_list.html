@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'universities/css/main.css' %}">
+    <link rel="icon" href="{% static 'core/images/favicon/favicon.svg' %}">
+    <title>Supported Universities - Is It Full?</title>
+</head>
+<body>
+    <header>
+        <h1>Supported Universities</h1>
+    </header>
+
+    <main>
+        <!-- Display success/error messages -->
+        {% if messages %}
+            <!-- messages is special context variable Django provides -->
+            <div class="messages">
+                {% for message in messages %}
+                    <!-- message.tags contains type: success, error, warning, info -->
+                    <div class="message {{ message.tags }}">
+                        <!-- message outputs the text we set in views -->
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Form for adding new university -->
+        <section class="add-university">
+            <h2>Add New University</h2>
+            <!-- action: where form submits to -->
+            <!-- method: POST to send data securely -->
+            <form method="post" action="{% url 'university_create_form' %}">
+                <!-- CSRF token required for all POST forms in Django -->
+                {% csrf_token %}
+
+                <!-- Name field -->
+                <div class="form-group">
+                    <!-- for="{{ form.name.id_for_label }}" connects label to input -->
+                    <label for="{{ form.name.id_for_label }}">University Name:</label>
+                    <!-- {{ form.name }} renders input field Django generates -->
+                    {{ form.name }}
+                    <!-- Show errors if field validation fails -->
+                    {% if form.name.errors %}
+                        <span class="error">{{ form.name.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <!-- Email domain field -->
+                <div class="form-group">
+                    <label for="{{ form.email_domain.id_for_label }}">Email Domain:</label>
+                    {{ form.email_domain }}
+                    {% if form.email_domain.errors %}
+                        <span class="error">{{ form.email_domain.errors }}</span>
+                    {% endif %}
+                </div>
+
+                <!-- Checkbox for active status -->
+                <div class="form-group checkbox-group">
+                    {{ form.is_active }}
+                    <label for="{{ form.is_active.id_for_label }}">Active</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn-submit">Add University</button>
+            </form>
+        </section>
+
+        <!-- List of existing universities -->
+        <section class="university-list-section">
+            <h2>Current Universities</h2>
+
+            <!-- Check if universities list has any items -->
+            {% if university_list %}
+                <ul class="university-list">
+                    <!-- Loop through each university object -->
+                    {% for university in university_list %}
+                        <li class="university-item {% if not university.is_active %}inactive{% endif %}">
+
+                            <!-- Check if this specific university is being edited -->
+                            <!-- editing_id comes from view's get_context_data -->
+                            {% if editing_id == university.id %}
+                                <!-- EDIT MODE: Show edit form -->
+                                <div class="edit-form-container">
+                                    <h3>Editing: {{ university.name }}</h3>
+                                    <!-- action uses Django url tag to generate URL with university.id -->
+                                    <!-- Example: /universities/update/5 -->
+                                    <form method="post" action="{% url 'university_update' university.id %}" class="inline-edit-form">
+                                        {% csrf_token %}
+
+                                        <!-- edit_form comes from view when ?edit=<id> in URL -->
+                                        <div class="form-group">
+                                            <label for="{{ edit_form.name.id_for_label }}">University Name:</label>
+                                            {{ edit_form.name }}
+                                            {% if edit_form.name.errors %}
+                                                <span class="error">{{ edit_form.name.errors }}</span>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="{{ edit_form.email_domain.id_for_label }}">Email Domain:</label>
+                                            {{ edit_form.email_domain }}
+                                            {% if edit_form.email_domain.errors %}
+                                                <span class="error">{{ edit_form.email_domain.errors }}</span>
+                                            {% endif %}
+                                        </div>
+
+                                        <div class="form-group checkbox-group">
+                                            {{ edit_form.is_active }}
+                                            <label for="{{ edit_form.is_active.id_for_label }}">Active</label>
+                                        </div>
+
+                                        <div class="form-actions">
+                                            <!-- Save button submits the form -->
+                                            <button type="submit" class="btn-save">Save Changes</button>
+                                            <!-- Cancel is just a link back to main page (removes ?edit= parameter) -->
+                                            <a href="{% url 'university_list' %}" class="btn-cancel">Cancel</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <!-- DISPLAY MODE: Show university info with edit/delete buttons -->
+                                <div class="university-info">
+                                    <!-- Display university name -->
+                                    <h3>{{ university.name }}</h3>
+                                    <!-- Display email domain -->
+                                    <p class="email-domain">{{ university.email_domain }}</p>
+
+                                    <!-- Show inactive badge if university is not active -->
+                                    {% if not university.is_active %}
+                                        <span class="status-badge">Inactive</span>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Action buttons container -->
+                                <div class="university-actions">
+                                    <!-- Edit button: links to same page with ?edit=<id> parameter -->
+                                    <!-- This triggers view to include edit_form in context -->
+                                    <a href="?edit={{ university.id }}" class="btn-edit">Edit</a>
+
+                                    <!-- Delete button: uses form because DELETE should be POST request -->
+                                    <!-- display: inline makes form appear inline with edit button -->
+                                    <form method="post" action="{% url 'university_delete' university.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <!-- onclick confirms before deleting -->
+                                        <!-- return false cancels submit if user clicks 'Cancel' -->
+                                        <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete {{ university.name }}?');">Delete</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <!-- Message shown when no universities exist -->
+                <p class="no-universities">No universities are currently supported.</p>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
