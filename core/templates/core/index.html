@@ -1,16 +1,16 @@
+{% extends 'core/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="{% static 'core/css/main.css' %}">
-    <link rel="icon" href="{% static 'core/images/favicon/favicon.svg' %}">
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
 
-    <title>Is It Full? - Check University Study Space Occupancy</title>
-</head>
-<body>
+{% block title %}
+    Is It Full? - Index
+{% endblock %}
+
+{% block body %}
     <header>
         <nav class="nav-bar">
             <button class="logo nav-btn" data-section="home-section">
@@ -263,16 +263,8 @@
             </div>
         </section>
     </main>
+{% endblock %}
 
-    <footer>
-        <div class="footer-content">
-            <!-- TODO: add a cube -->
-            <p>&copy; 2025 Is It Full · Making university study spaces more accessible </p>
-        </div>
-    </footer>
-
+{% block scripts %}
     <script src="{% static 'core/javascript/main.js' %}" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-</body>
-</html>
+{% endblock %}

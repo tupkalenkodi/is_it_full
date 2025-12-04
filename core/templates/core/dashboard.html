@@ -1,48 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Campus Spaces Dashboard</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center">
-  <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-10 text-center">
-    <h1 class="text-5xl font-bold text-indigo-600 mb-4">
-      Campus Spaces
-    </h1>
-    <p class="text-xl text-gray-700 mb-8">
-      Real-time study space availability
-    </p>
+{% extends 'core/base.html' %}
+{% load static %}
 
-    <div class="grid grid-cols-2 gap-6 mb-10">
-      <div class="bg-green-100 rounded-xl p-8 border-4 border-green-300">
-        <div class="text-4xl font-bold text-green-700">Main Library</div>
-        <div class="text-6xl font-black text-green-600 mt-2">32%</div>
-        <div class="text-green-600">Mostly empty</div>
-      </div>
+{% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'core/css/dashboard.css' %}">
+{% endblock %}
 
-      <div class="bg-red-100 rounded-xl p-8 border-4 border-red-300">
-        <div class="text-4xl font-bold text-red-700">Grainger</div>
-        <div class="text-6xl font-black text-red-600 mt-2">94%</div>
-        <div class="text-red-600">Almost full!</div>
-      </div>
-    </div>
+{% block title %}
+    Is It Full? - Dashboard
+{% endblock %}
 
-    <div class="text-sm text-gray-500">
-      Docker + Django is working perfectly!
-      <br><br>
-      <a href="/admin/" class="text-indigo-600 underline hover:text-indigo-800">
-        Go to Admin →
-      </a>
-    </div>
-  </div>
+{% block body %}
+    <header>
+        <nav class="nav-bar">
+            <button class="logo nav-btn" data-section="home-section">
+                <img src="{% static 'core/images/favicon/favicon.svg' %}" alt="Is It Full Logo">
+            </button>
 
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
 
-<form method="post" action="{% url 'homepage' %}">
-     {% csrf_token %}
-    <input type="hidden" name="action" value="signout">
-    <button type="submit">Sign Out</button>
-</form>
-</body>
-</html>
+        <div class="menu" id="Menu">
+            <p>Change Password</p>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <button type="submit" name="action" value="signout" class="signout-btn">
+                    Sign Out
+                </button>
+            </form>
+            <p>Delete Account</p>
+        </div>
+    </header>
+
+    <main>
+
+    </main>
+{% endblock %}

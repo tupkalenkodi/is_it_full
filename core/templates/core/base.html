@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="{% static 'core/images/favicon/favicon.svg' %}">
+    {% block stylesheet %}{% endblock %}
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% block body %}{% endblock %}
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Is It Full &middot; Making university study spaces more accessible </p>
+
+            <svg width="20" height="20" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                <!-- Front face -->
+                <polygon points="16,8 48,8 48,40 16,40" fill="white" stroke="#333" stroke-width="2"/>
+                <!-- Top face -->
+                <polygon points="16,8 32,0 64,0 48,8" fill="white" stroke="#333" stroke-width="2"/>
+                <!-- Side face -->
+                <polygon points="48,8 64,0 64,32 48,40" fill="white" stroke="#333" stroke-width="2"/>
+            </svg>
+
+        </div>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

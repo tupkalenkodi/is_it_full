@@ -828,3 +828,27 @@ footer {
         justify-content: center;
     }
 }
+
+footer {
+    background: #000000;
+    color: #666666;
+    padding: 2rem 0;
+    margin-top: 4rem;
+    border-top: 2px solid #222222;
+}
+
+.footer-content {
+    margin-left: 1vw;
+    width: 80vw;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.footer-content p {
+    margin: 0;
+    width: auto;
+    font-size: 1rem;
+    color: #666666;
+}
+
+
