@@ -18,8 +18,15 @@ AUTHENTICATION_BACKENDS = [
 # CUSTOM USER AUTHENTIFICATION MODEL
 AUTH_USER_MODEL = 'users.User'
 
-# CUSTOM USER AUTHENTIFICATION BACKEND
+# CUSTOM USER AUTHENTIFICATION BACKEND + E-MAIL VERIFICATION
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = decouple_config('EMAIL_ID')
+EMAIL_HOST_PASSWORD = decouple_config('EMAIL_PW')
+
+DEFAULT_FROM_EMAIL = decouple_config('EMAIL_ID')
 
 # APPLICATION DEFINITION
 INSTALLED_APPS = [
@@ -29,9 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "verify_email.apps.VerifyEmailConfig",
     'core',
     'users',
     'universities'
+
 ]
 
 MIDDLEWARE = [

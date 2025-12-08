@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-{% block stylesheet %}
+{% block stylesheets %}
     <link rel="stylesheet" href="{% static 'core/css/index.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
@@ -30,10 +30,10 @@
             </div>
 
             <div class="nav-actions">
-                <a href="{% url 'university_list' %}" class="btn-signin">
+                <a href="{% url 'university_list' %}" class="btn-action">
                     Universities
                 </a>
-                <a href="{% url 'signin_form' %}" class="btn-signin">
+                <a href="{% url 'signin_form' %}" class="btn-action">
                     Sign In ↗
                 </a>
                 <a href="{% url 'signup_form' %}" class="btn-signup">
@@ -76,7 +76,9 @@
                             <p>Update occupancy when you're there to help others</p>
                         </div>
                     </div>
-
+                    <div class="hero-actions">
+                        <a href="{% url 'university_list' %}" class="btn-primary">Check Supported Universities, Request an addition</a>
+                    </div>
                     <div class="hero-actions">
                         <a href="{% url 'signup_form' %}" class="btn-primary">Get Started</a>
                         <a href="{% url 'signin_form' %}" class="btn-secondary">Sign In</a>
@@ -104,7 +106,7 @@
                         <div class="feature-card">
                             <div class="feature-icon">📍</div>
                             <h3>Browse Study Spaces</h3>
-                            <p>View all campus study locations—libraries, study rooms, cafeterias—with current occupancy levels updated by fellow students.</p>
+                            <p>View all campus study locations—libraries, study rooms, cafeterias—with current occupancy levels updated by fellow students. Add new locations if your preferred one is not listed.</p>
                         </div>
 
                         <div class="feature-card">
@@ -154,6 +156,7 @@
             </div>
         </section>
 
+        <!-- TODO: complete -->
         <!-- FAQ SECTION -->
         <section id="faq-section" class="page-section">
             <div class="faq-content">
@@ -170,56 +173,6 @@
                                 <p>Occupancy is updated in real-time by verified students who are physically present at each location. Each update includes a timestamp so you can see how recent the information is. The more students who participate, the more reliable the data becomes.</p>
                             </div>
                         </div>
-
-                        <div class="faq-item">
-                            <h2 class="faq-question" onclick="toggleFAQ(this)">
-                                What if my university isn't supported yet?
-                                <span class="faq-icon">+</span>
-                            </h2>
-                            <div class="faq-answer">
-                                <p>We're continuously adding new universities. You can help by contacting your student affairs or IT department and asking them to partner with Is It Full. We'll work with them to get your campus set up quickly.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <h2 class="faq-question" onclick="toggleFAQ(this)">
-                                How often should I update occupancy levels?
-                                <span class="faq-icon">+</span>
-                            </h2>
-                            <div class="faq-answer">
-                                <p>Update whenever you notice the occupancy has changed significantly. If you arrive at a location and the status seems outdated, take a moment to update it. Even occasional updates from various students throughout the day keep the information useful.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <h2 class="faq-question" onclick="toggleFAQ(this)">
-                                Do I need to create an account?
-                                <span class="faq-icon">+</span>
-                            </h2>
-                            <div class="faq-answer">
-                                <p>Yes, you'll need to sign up with your university email address. This ensures that only verified students from your university can view and update occupancy information, keeping the data trustworthy and relevant.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <h2 class="faq-question" onclick="toggleFAQ(this)">
-                                What information do you collect?
-                                <span class="faq-icon">+</span>
-                            </h2>
-                            <div class="faq-answer">
-                                <p>We only collect your university email for verification and basic account information. We don't track your location or which spaces you visit. Occupancy updates are anonymous—we only show that a verified student updated the status.</p>
-                            </div>
-                        </div>
-
-                        <div class="faq-item">
-                            <h2 class="faq-question" onclick="toggleFAQ(this)">
-                                Can I suggest new locations to add?
-                                <span class="faq-icon">+</span>
-                            </h2>
-                            <div class="faq-answer">
-                                <p>Absolutely! We work with each university to determine which study spaces to include. If there's a popular study spot missing, let us know and we'll coordinate with your university to add it.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -234,17 +187,12 @@
                     <div class="about-grid">
                         <div class="about-card">
                             <h2>The Problem</h2>
-                            <p>Every student has asked themselves: "Is the library full right now?" Walking to university only to find no available study space wastes time and disrupts your study plans.</p>
+                            <p>We've all been there — wondering, "Is the library full right now?" Heading to campus only to discover there's no space to study.</p>
                         </div>
 
                         <div class="about-card">
                             <h2>The Solution</h2>
                             <p>Is It Full puts real-time occupancy information in your hands. Check before you go, find alternative spaces, and contribute updates to help fellow students.</p>
-                        </div>
-
-                        <div class="about-card">
-                            <h2>Community-Powered</h2>
-                            <p>This system only works because of students like you. By updating occupancy when you're at a location, you help everyone make better decisions about where to study.</p>
                         </div>
                     </div>
 

@@ -44,48 +44,33 @@ class SignupForm(UserCreationForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
 
-        # Check if user already exists
+        # CHECK IF USER ALREADY EXISTS
         if User.objects.filter(email=email).exists():
             raise ValidationError("An account with this email already exists.")
 
-        # Normalize email to lowercase
+        # NORMALIZE EMAIL TO LOWERCASE
         email = email.lower()
 
-        # Extract domain and check if university exists
+        # EXTRACT DOMAIN AND CHECK IF UNIVERSITY EXISTS
         if '@' not in email:
             raise ValidationError("Please enter a valid email address.")
 
         email_domain = '@' + email.split('@')[1]
 
-        # Import here to avoid circular import
-        try:
-            from universities.models import University
-        except ImportError:
-            # If universities app doesn't exist yet, skip university validation
-            return email
+        from universities.models import University
 
-        # Check if an approved university exists with this domain
+        # CHECK IF AN APPROVED UNIVERSITY EXISTS WITH THIS DOMAIN
         if not University.objects.filter(email_domain=email_domain, is_approved=True).exists():
-            # Store domain in session for redirect (if request is available)
-            self.request = getattr(self, 'request', None)
-            if self.request:
-                self.request.session['pending_university_domain'] = email_domain
-                self.request.session['pending_email'] = email
 
             raise ValidationError(
-                "This university is not yet supported. You'll be redirected to request adding it."
+                "This university is not yet supported."
             )
 
         return email
 
     def save(self, commit=True):
         user = super().save(commit=False)
-
-        # Auto-assign university based on email domain
-        if user.email:
-            university = user.get_university_from_email(user.email)
-            if university:
-                user.associated_university = university
+        user.is_active = False
 
         if commit:
             user.save()
