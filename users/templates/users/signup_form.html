@@ -8,6 +8,7 @@
 
         <div class="center-wrapper">
             <h1>Create your account</h1>
+            <p>Sign up with your university email</p>
         </div>
 
         {% if form.errors %}
@@ -40,6 +41,11 @@
                 Already have an account? <a href="{% url 'signin_form' %}">Sign in</a>
                 <span class="arrow">&#x2197;</span>
             </p>
+        </div>
+
+        <div class="info-box">
+            <h3>Why university email?</h3>
+            <p>We require university email addresses to ensure our community is exclusively for students tracking campus spaces.</p>
         </div>
 
     </form>

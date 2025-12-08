@@ -9,7 +9,8 @@ class University(models.Model):
         max_length=100,
         unique=True,
     )
-    is_active = models.BooleanField(default=True)
+    # TODO: enable university validation by admin
+    is_approved = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
