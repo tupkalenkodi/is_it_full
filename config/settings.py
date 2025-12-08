@@ -72,11 +72,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# DATABASE
+# POSTGRESQL DATABASE CONFIGURATION
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': decouple_config('DB_NAME'),
+        'USER': decouple_config('DB_USER'),
+        'PASSWORD': decouple_config('DB_PASSWORD'),
+        'HOST': decouple_config('DB_HOST', default='localhost'),
+        'PORT': decouple_config('DB_PORT', default='5432'),
     }
 }
 
