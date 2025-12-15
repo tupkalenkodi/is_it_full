@@ -19,19 +19,19 @@ class UniversityListView(generic.ListView):
         # Add an empty form for creating new universities
         context['form'] = UniversityForm()
 
-        # Check if we're editing a university (from URL parameter ?edit=<id>)
+        # Check if we're editing a associated_university (from URL parameter ?edit=<id>)
         edit_id = self.request.GET.get('edit')
         if edit_id:
-            # If edit parameter exists, try to get that university
+            # If edit parameter exists, try to get that associated_university
             try:
-                # Fetch university with this ID from database
+                # Fetch associated_university with this ID from database
                 university_to_edit = University.objects.get(id=edit_id)
-                # Create form pre-filled with this university's data
+                # Create form pre-filled with this associated_university's data
                 context['edit_form'] = UniversityForm(instance=university_to_edit)
                 # Store the ID so template knows which one is being edited
                 context['editing_id'] = int(edit_id)
             except University.DoesNotExist:
-                # If university with this ID doesn't exist, ignore
+                # If associated_university with this ID doesn't exist, ignore
                 pass
 
         return context
@@ -55,7 +55,7 @@ class UniversityCreateView(generic.CreateView):
     def form_invalid(self, form):
         # This method is called when form data is invalid
         # Add error message
-        messages.error(self.request, 'Error adding university. Please check the form.')
+        messages.error(self.request, 'Error adding associated_university. Please check the form.')
         # Redirect back to list (form errors will be lost, but this is simpler)
         return redirect('university_list')
 
@@ -75,7 +75,7 @@ class UniversityUpdateView(generic.UpdateView):
 
     def form_invalid(self, form):
         # Called when form data is invalid
-        messages.error(self.request, 'Error updating university. Please check the form.')
+        messages.error(self.request, 'Error updating associated_university. Please check the form.')
         # Redirect back to list with edit parameter to show form again
         return redirect(f"{reverse_lazy('university_list')}?edit={self.object.id}")
 
@@ -89,7 +89,7 @@ class UniversityDeleteView(generic.View):
         university = get_object_or_404(University, pk=pk)
         # Store name before deleting (for success message)
         university_name = university.name
-        # Delete the university from database
+        # Delete the associated_university from database
         university.delete()
         # Add success message
         messages.success(request, f'University "{university_name}" deleted successfully!')

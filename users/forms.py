@@ -11,7 +11,7 @@ class SignupForm(UserCreationForm):
         required=True,
         label="University Email",
         widget=forms.EmailInput(attrs={
-            'placeholder': 'name@university.edu',
+            'placeholder': 'name@associated_university.edu',
             'autocomplete': 'email',
             'class': 'form-control'
         })
@@ -63,7 +63,7 @@ class SignupForm(UserCreationForm):
         if not University.objects.filter(email_domain=email_domain, is_approved=True).exists():
 
             raise ValidationError(
-                "This university is not yet supported."
+                "This associated_university is not yet supported."
             )
 
         return email

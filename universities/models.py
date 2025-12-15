@@ -9,7 +9,7 @@ class University(models.Model):
         max_length=100,
         unique=True,
     )
-    # TODO: enable university validation by admin
+    # TODO: enable associated_university validation by admin
     is_approved = models.BooleanField(default=True)
 
     def __str__(self):
@@ -49,7 +49,7 @@ class Space(models.Model):
     location = models.CharField(
         max_length=200,
     )
-    university = models.ForeignKey(
+    associated_university = models.ForeignKey(
         University,
         on_delete=models.CASCADE,
     )
@@ -88,7 +88,7 @@ class Space(models.Model):
     has_wifi = models.BooleanField(null=True, blank=True)
 
     # Eating spaces
-    student_discounts = models.BooleanField(null=True, blank=True)
+    has_student_discounts = models.BooleanField(null=True, blank=True)
     eating_price_range = models.IntegerField(
         null=True,
         blank=True,
@@ -109,15 +109,15 @@ class Space(models.Model):
 
 
     class Meta:
-        ordering = ['university', 'space_type', 'name']
-        unique_together = [['university', 'name', 'location']]
+        ordering = ['associated_university', 'space_type', 'name']
+        unique_together = [['associated_university', 'name', 'location']]
         indexes = [
-            models.Index(fields=['university', 'space_type']),
+            models.Index(fields=['associated_university', 'space_type']),
             models.Index(fields=['parent']),
         ]
 
     def __str__(self):
-        return f"{self.name} ({self.location}) - {self.university.name}"
+        return f"{self.name} ({self.location}) - {self.associated_university.name}"
 
     def get_full_name(self):
         if self.parent:
@@ -175,7 +175,7 @@ class Space(models.Model):
                 self.has_wifi = False
 
         elif self.space_type == self.SPACE_TYPE_EATING:
-            if self.student_discounts is None:
+            if self.has_student_discounts is None:
                 self.student_discounts = False
             if self.eating_price_range is None:
                 self.eating_price_range = 2

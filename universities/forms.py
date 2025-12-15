@@ -11,7 +11,7 @@ class UniversityForm(forms.ModelForm):
                 'placeholder': 'University Name'
             }),
             'email_domain': forms.TextInput(attrs={
-                'placeholder': '@university.edu'
+                'placeholder': '@associated_university.edu'
             }),
             'is_approved': forms.CheckboxInput()
         }

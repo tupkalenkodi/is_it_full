@@ -9,16 +9,16 @@ urlpatterns = [
     # Maps URL: /universities/ to UniversityListView
     path('', views.UniversityListView.as_view(), name='university_list'),
 
-    # Create new university
+    # Create new associated_university
     # Maps URL: /universities/create_form to UniversityCreateView
     path('create_form', views.UniversityCreateView.as_view(), name='university_create_form'),
 
-    # Update existing university
+    # Update existing associated_university
     # <int:pk> captures integer from URL and passes as 'pk' parameter
     # Example: /universities/update/5 passes pk=5
     path('update/<int:pk>', views.UniversityUpdateView.as_view(), name='university_update'),
 
-    # Delete university
+    # Delete associated_university
     # Example: /universities/delete/5 passes pk=5
     path('delete/<int:pk>', views.UniversityDeleteView.as_view(), name='university_delete'),
 ]

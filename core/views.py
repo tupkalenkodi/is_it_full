@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from universities.models import Space
 from users.views import handle_signout
+from django.contrib.auth import logout
 
 
 @handle_signout
@@ -10,6 +11,8 @@ def homepage(request):
         context = {}
     else:
         user = request.user
+        if user.is_superuser:
+            logout(request)
         template = 'core/dashboard.html'
 
         # RETRIEVE THE ASSOCIATED UNIVERSITY SPACES
@@ -19,7 +22,7 @@ def homepage(request):
             university_spaces = None
 
         context = {
-            'university' : user.associated_university,
+            'associated_university' : user.associated_university,
             'university_spaces': university_spaces,
             'user': user,
         }

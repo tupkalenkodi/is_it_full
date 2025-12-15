@@ -1,4 +1,5 @@
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -32,36 +33,59 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class User(AbstractUser):
+class BaseUser(AbstractBaseUser, PermissionsMixin):
+    class Meta:
+        abstract = True
+
     username = None
     email = models.EmailField(unique=True, blank=False, null=False)
-
-    # FOREIGN KEY TO UNIVERSITY MODEL
-    associated_university = models.ForeignKey(
-        'universities.University',
-        on_delete=models.CASCADE,
-        related_name='users',
-        null=True,
-        blank=True
-    )
+    is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-
     def __str__(self):
         return self.email
 
-    def get_email_domain(self):
-        # EXTRACT DOMAIN FROM EMAIL (e.g. '@student.upr.si')
-        if '@' in self.email:
-            return '@' + self.email.split('@')[1]
-        return None
 
-    # GET UNIVERSITY FROM EMAIL DOMAIN
-    # RETURNS UNIVERSITY OBJECT OR NONE IF NOT FOUND
+class User(BaseUser):
+    class Meta:
+        db_table = 'users_user'
+
+
+class UniversityUser(User):
+    associated_university = models.ForeignKey(
+        'universities.University',
+        on_delete=models.CASCADE,
+        related_name='university_users',
+        null=False,
+        blank=False
+    )
+
+    def clean(self):
+        # Auto-detect university from email if not set
+        if self.email and not self.associated_university:
+            university = self.get_university_from_email(self.email)
+            if university:
+                self.associated_university = university
+            else:
+                raise ValidationError({
+                    'email': f'No university found for email domain: {self.email}'
+                })
+
+    def save(self, *args, **kwargs):
+        self.clean()
+        super().save(*args, **kwargs)
+
+    def can_manage_space(self, space):
+        return (
+                self.is_active and
+                space.university == self.associated_university
+        )
+
     @staticmethod
     def get_university_from_email(email):
         from universities.models import University
@@ -76,13 +100,17 @@ class User(AbstractUser):
         except University.DoesNotExist:
             return None
 
-    def save(self, *args, **kwargs):
-        # AUTO-DETECT UNIVERSITY FROM EMAIL DOMAIN IF NOT SET
-        if self.email and not self.associated_university:
-            university = self.get_university_from_email(self.email)
-            if university:
-                self.associated_university = university
-            else:
-                raise ValueError("Cannot save user without a valid university")
 
+class SystemAdmin(User):
+    def save(self, *args, **kwargs):
+        self.is_staff = True
+        self.is_superuser = True
+        self.is_active = True
         super().save(*args, **kwargs)
+
+    def approve_university(self, university):
+        if self.is_superuser and self.is_active:
+            university.is_approved = True
+            university.save(update_fields=['is_approved'])
+            return True
+        return False
