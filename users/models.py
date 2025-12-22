@@ -34,16 +34,11 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """
-    Single unified user model that handles both regular university users
-    and system administrators through Django's built-in permission system.
-    """
-
     # Authentication fields
     username = None
     email = models.EmailField(unique=True, blank=False, null=False)
 
-    # Permission fields (from PermissionsMixin)
+    # Permission fields
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     # is_superuser comes from PermissionsMixin
@@ -55,11 +50,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         related_name='users',
         null=True,
         blank=True,
-    )
-
-    # Optional: Reputation system for community incentives
-    reputation_score = models.IntegerField(
-        default=0,
     )
 
     objects = CustomUserManager()
@@ -78,10 +68,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.email
 
     def clean(self):
-        """
-        Validate and auto-assign university based on email domain.
-        System admins (is_superuser=True) don't need a university.
-        """
         # Superusers don't need a university
         if self.is_superuser:
             self.associated_university = None
@@ -98,31 +84,26 @@ class User(AbstractBaseUser, PermissionsMixin):
                 })
 
     def save(self, *args, **kwargs):
-        """Override save to run validation."""
         # Only run clean() for new users or if email/university changed
-        if not self.pk or self.email != self.__class__.objects.filter(pk=self.pk).values_list('email',
-                                                                                              flat=True).first():
+        if (not self.pk or self.email != self.__class__.objects.
+                filter(pk=self.pk).values_list('email', flat=True).first()):
             self.clean()
         super().save(*args, **kwargs)
 
     # Properties to check user type
     @property
     def is_university_user(self):
-        """Check if this is a regular university user."""
         return self.associated_university is not None and not self.is_superuser
 
     @property
     def is_system_admin(self):
-        """Check if this is a system administrator."""
         return self.is_superuser and self.is_staff
 
     # Permission methods
     def can_manage_space(self, space):
-        """Check if user can create/update/delete a space."""
         if not self.is_active:
             return False
 
-        # System admins can manage any space
         if self.is_system_admin:
             return True
 
@@ -133,7 +114,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
 
     def can_report_occupancy(self, space):
-        """Check if user can report occupancy for a space."""
         if not self.is_active:
             return False
 
@@ -144,7 +124,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
 
     def approve_university(self, university):
-        """System admin method to approve a university."""
         if self.is_system_admin:
             university.is_approved = True
             university.save(update_fields=['is_approved'])
@@ -153,14 +132,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Utility methods
     def get_email_domain(self):
-        """Extract domain from email (e.g., '@student.upr.si')."""
+        # Extract domain from email (e.g., '@student.upr.si').
         if '@' in self.email:
             return '@' + self.email.split('@')[1]
         return None
 
     @staticmethod
     def get_university_from_email(email):
-        """Get university object from email domain."""
         from universities.models import University
 
         if '@' not in email:

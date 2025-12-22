@@ -49,13 +49,23 @@ class Space(models.Model):
     location = models.CharField(
         max_length=200,
     )
-    associated_university = models.ForeignKey(
-        University,
-        on_delete=models.CASCADE,
-    )
+
     space_type = models.CharField(
         max_length=20,
         choices=SPACE_TYPES
+    )
+
+    # Occupancy tracking
+    current_occupancy = models.IntegerField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
+    )
+
+    # Composite relationship with University
+    associated_university = models.ForeignKey(
+        University,
+        on_delete=models.CASCADE,
     )
 
     # Composite pattern: parent-child relationship
@@ -67,19 +77,14 @@ class Space(models.Model):
         related_name='children',
     )
 
-    # Occupancy tracking
-    current_occupancy = models.IntegerField(
-        null=True,
-        blank=True,
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
-    )
-    last_updated = models.DateTimeField(null=True, blank=True)
-    updated_by = models.ForeignKey(
-        'users.User',  # Your custom user model
+    # Assocation relationship with University
+    last_updated_by = models.ForeignKey(
+        'users.User',
         on_delete=models.SET_NULL,
         null=True,
-        related_name='created_spaces'
     )
+
+    last_updated = models.DateTimeField(null=True, blank=True)
 
     # TYPE-SPECIFIC FIELDS (NULLABLE FOR OTHER TYPES)
 
