@@ -1,8 +1,6 @@
 from django.urls import path
 from . import views
 
-from django.urls import path
-from . import views
 
 urlpatterns = [
     # Main page - shows list and create form
@@ -21,4 +19,6 @@ urlpatterns = [
     # Delete associated_university
     # Example: /universities/delete/5 passes pk=5
     path('delete/<int:pk>', views.UniversityDeleteView.as_view(), name='university_delete'),
+
+    path('space/delete/<int:space_id>/', views.delete_space, name='delete_space'),
 ]

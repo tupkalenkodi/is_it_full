@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from .forms import SignupForm, SigninForm, CustomPasswordChangeForm
+from .forms import SignupForm, SigninForm
 from django.views import View
 from verify_email.email_handler import ActivationMailManager
 
@@ -26,11 +26,12 @@ class SignupView(View):
 
         form = self.form_class(request.POST)
         if form.is_valid():
-            # Send verification email using ActivationMailManager
-            mail_manager = ActivationMailManager()
-            mail_manager.send_verification_link(request, form)
-
-            return redirect('signin_form')
+            # Send verification email using ActivationMailManager (disabled for mvp)
+            # mail_manager = ActivationMailManager()
+            # mail_manager.send_verification_link(request, form)
+            if form.is_valid():
+                user = form.save()  # Add this line!
+                return redirect('signin_form')
 
         # 400 Bad Request
         return render(request, self.template_name, {'form': form}, status=400)
@@ -63,19 +64,19 @@ def handle_signout(view_func):
 
     return wrapper
 
-
-@login_required(login_url='signin_form')
-def change_password(view_func):
-    def wrapper(request):
-        if request.method == 'POST':
-            form = CustomPasswordChangeForm(user=request.user, data=request.POST)
-            if form.is_valid():
-                user = form.save()
-                update_session_auth_hash(request, user)
-                return redirect('homepage')
-        else:
-            form = CustomPasswordChangeForm(user=request.user)
-
-        return render(request, template_name='users/change_password_form.html',
-                      context={'form': form})
-    return wrapper
+# disabled for MVP
+# @login_required(login_url='signin_form')
+# def change_password(view_func):
+#     def wrapper(request):
+#         if request.method == 'POST':
+#             form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+#             if form.is_valid():
+#                 user = form.save()
+#                 update_session_auth_hash(request, user)
+#                 return redirect('homepage')
+#         else:
+#             form = CustomPasswordChangeForm(user=request.user)
+#
+#         return render(request, template_name='users/change_password_form.html',
+#                       context={'form': form})
+#     return wrapper

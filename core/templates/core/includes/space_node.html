@@ -1,0 +1,45 @@
+<div class="space-node" style="{% if not is_root %}margin-top: 15px; padding-left: 20px; border-left: 2px solid #f1f1f1;{% endif %}">
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+            <h4 style="margin: 0; font-size: {% if is_root %}1.4em{% else %}1.1em{% endif %}; color: #2c3e50;">
+                {{ space.name }}
+
+                <form action="{% url 'delete_space' space.id %}" method="post" style="display:inline; margin-left:10px;" onsubmit="return confirm('Delete this space and all its sub-sections?');">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:#e74c3c; cursor:pointer; font-size: 0.7em; padding:0;">
+                    [Delete]
+                </button>
+            </form>
+            </h4>
+            {% if is_root %}
+                <p style="color: #666; font-size: 0.85em; margin: 2px 0;">Location: {{ space.location }}</p>
+            {% endif %}
+
+
+        </div>
+
+        <div class="status-badge">
+            {% with occ=space.get_occupancy %}
+                {% if occ <= 2 %}<span style="color: green; font-weight: bold; font-size: 0.9em;">● FREE</span>
+                {% elif occ <= 4 %}<span style="color: orange; font-weight: bold; font-size: 0.9em;">● BUSY</span>
+                {% elif occ == 5 %}<span style="color: red; font-weight: bold; font-size: 0.9em;">● FULL</span>
+                {% else %}<span style="color: #999; font-size: 0.85em;">No Data</span>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    {% if not space.children.exists %}
+        {% include "core/includes/occupancy_buttons.html" with space_id=space.id %}
+        <p style="margin: 5px 0 0 0;">
+            <small style="color: #bbb; font-size: 0.75em;">Verified {{ space.last_updated|timesince|default:"long ago" }} ago</small>
+        </p>
+    {% else %}
+        <div class="nested-children">
+            {% for child in space.children.all %}
+                {% include "core/includes/space_node.html" with space=child is_root=False %}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,20 @@
+<div style="margin-top: 10px; max-width: 300px;">
+    <form method="post" style="display: flex; gap: 5px;">
+        {% csrf_token %}
+        <input type="hidden" name="space_id" value="{{ space_id }}">
+        <input type="hidden" name="update_occupancy" value="1">
+
+        <button type="submit" name="current_occupancy" value="1"
+                style="flex: 1; padding: 5px; background: #fff; border: 1px solid green; color: green; border-radius: 4px; cursor: pointer; font-size: 0.8em; transition: 0.2s;">
+            Free
+        </button>
+        <button type="submit" name="current_occupancy" value="3"
+                style="flex: 1; padding: 5px; background: #fff; border: 1px solid orange; color: orange; border-radius: 4px; cursor: pointer; font-size: 0.8em; transition: 0.2s;">
+            Busy
+        </button>
+        <button type="submit" name="current_occupancy" value="5"
+                style="flex: 1; padding: 5px; background: #fff; border: 1px solid red; color: red; border-radius: 4px; cursor: pointer; font-size: 0.8em; transition: 0.2s;">
+            Full
+        </button>
+    </form>
+</div>

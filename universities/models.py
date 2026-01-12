@@ -130,18 +130,15 @@ class Space(models.Model):
         return self.name
 
     def get_occupancy(self):
-        # If this space has its own occupancy, return it
-        if self.current_occupancy is not None:
+        # If this specific space has a manual occupancy (a leaf node)
+        if self.current_occupancy is not None and not self.children.exists():
             return self.current_occupancy
 
-        # If composite, calculate average from children
+        # If it's a parent, calculate average from children
+        # We use .all() to ensure we are looking at the current state
         children = self.children.all()
         if children.exists():
-            occupancies = [
-                child.get_occupancy()
-                for child in children
-            ]
-            # Filter out None values
+            occupancies = [child.get_occupancy() for child in children]
             valid_occupancies = [occ for occ in occupancies if occ is not None]
 
             if valid_occupancies:

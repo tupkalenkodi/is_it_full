@@ -23,12 +23,12 @@
                 <span></span>
             </button>
 
-            <div class="nav-links">
+            {% comment %}<div class="nav-links">
                 <button class="nav-btn" data-section="how-it-works-section">How It Works</button>
                 <button class="nav-btn" data-section="faq-section">FAQ</button>
                 <button class="nav-btn" data-section="developer-section">About</button>
             </div>
-
+            {% endcomment %}
             <div class="nav-actions">
                 <a href="{% url 'university_list' %}" class="btn-action">
                     Universities
@@ -43,11 +43,11 @@
         </nav>
 
         <div class="mobile-menu" id="mobileMenu">
-            <button class="mobile-nav-btn" data-section="home-section">Home</button>
+            {% comment %}<button class="mobile-nav-btn" data-section="home-section">Home</button>
             <button class="mobile-nav-btn" data-section="how-it-works-section">How It Works</button>
             <button class="mobile-nav-btn" data-section="faq-section">FAQ</button>
             <button class="mobile-nav-btn" data-section="developer-section">About</button>
-            <hr>
+            <hr>{% endcomment %}
             <a href="{% url 'university_list' %}">Universities</a>
             <a href="{% url 'signin_form' %}">Sign In ↗</a>
             <a href="{% url 'signup_form' %}">Sign Up ↗</a>
@@ -58,7 +58,7 @@
         <section id="home-section" class="page-section active">
             <div class="hero">
                 <div class="hero-text">
-                    <h1>Is It Full?</h1>
+                    {% comment %}<h1>Is It Full?</h1>
                     <p class="hero-subtitle">Stop wondering if the library is packed. Check real-time occupancy before you head there.</p>
                     <p class="hero-description">Students update space availability in real-time. Browse all study locations, see current occupancy levels, and help keep the community informed.</p>
 
@@ -75,7 +75,7 @@
                             <span class="step-number">3</span>
                             <p>Update occupancy when you're there to help others</p>
                         </div>
-                    </div>
+                    </div>{% endcomment %}
                     <div class="hero-actions">
                         <a href="{% url 'university_list' %}" class="btn-primary">Check Supported Universities, Request an addition</a>
                     </div>
@@ -84,13 +84,13 @@
                         <a href="{% url 'signin_form' %}" class="btn-secondary">Sign In</a>
                     </div>
 
-                    <p class="hero-note">✓ Verified students only · Real-time updates · Community-powered</p>
+                    <p class="hero-note">Verified students only · Community-powered</p>
                 </div>
             </div>
         </section>
 
         <!-- HOW IT WORKS SECTION -->
-        <section id="how-it-works-section" class="page-section">
+        {% comment %}<section id="how-it-works-section" class="page-section">
             <div class="content-wrapper">
                 <div class="container">
                     <h1>How It Works</h1>
@@ -209,7 +209,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section>{% endcomment %}
     </main>
 {% endblock %}
 

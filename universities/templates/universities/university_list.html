@@ -9,12 +9,12 @@
     <title>Supported Universities - Is It Full?</title>
 </head>
 <body>
-    <header>
-        <h1>Supported Universities</h1>
+    <header style="display: flex; justify-content: space-between; align-items: center; max-width: 800px; margin: 0 auto 20px auto; border-bottom: 2px solid #eee; padding-bottom: 10px;">
+        <h1 style="border: none; margin: 0; padding: 0;">Supported Universities</h1>
+        <a href="{% url 'homepage' %}" class="btn-back">← Back to Dashboard</a>
     </header>
 
     <main>
-        <!-- Display success/error messages -->
         {% if messages %}
             <div class="messages">
                 {% for message in messages %}
@@ -25,13 +25,11 @@
             </div>
         {% endif %}
 
-        <!-- Form for adding new university -->
         <section class="add-university">
             <h2>Add New University</h2>
             <form method="post" action="{% url 'university_create_form' %}">
                 {% csrf_token %}
 
-                <!-- Name field -->
                 <div class="form-group">
                     <label for="{{ form.name.id_for_label }}">University Name:</label>
                     {{ form.name }}
@@ -40,7 +38,6 @@
                     {% endif %}
                 </div>
 
-                <!-- Email domain field -->
                 <div class="form-group">
                     <label for="{{ form.email_domain.id_for_label }}">Email Domain:</label>
                     {{ form.email_domain }}
@@ -49,18 +46,15 @@
                     {% endif %}
                 </div>
 
-                <!-- Checkbox for approved status -->
                 <div class="form-group checkbox-group">
                     {{ form.is_approved }}
                     <label for="{{ form.is_approved.id_for_label }}">Approved</label>
                 </div>
 
-                <!-- Submit button -->
                 <button type="submit" class="btn-submit">Add University</button>
             </form>
         </section>
 
-        <!-- List of existing universities -->
         <section class="university-list-section">
             <h2>Current Universities</h2>
 
@@ -70,31 +64,24 @@
                         <li class="university-item {% if not university.is_approved %}inactive{% endif %}">
 
                             {% if editing_id == university.id %}
-                                <!-- EDIT MODE: Show edit form -->
-                                <div class="edit-form-container">
+                                <div class="edit-form-container" style="width: 100%;">
                                     <h3>Editing: {{ university.name }}</h3>
                                     <form method="post" action="{% url 'university_update' university.id %}" class="inline-edit-form">
                                         {% csrf_token %}
 
                                         <div class="form-group">
-                                            <label for="{{ edit_form.name.id_for_label }}">University Name:</label>
+                                            <label>University Name:</label>
                                             {{ edit_form.name }}
-                                            {% if edit_form.name.errors %}
-                                                <span class="error">{{ edit_form.name.errors }}</span>
-                                            {% endif %}
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="{{ edit_form.email_domain.id_for_label }}">Email Domain:</label>
+                                            <label>Email Domain:</label>
                                             {{ edit_form.email_domain }}
-                                            {% if edit_form.email_domain.errors %}
-                                                <span class="error">{{ edit_form.email_domain.errors }}</span>
-                                            {% endif %}
                                         </div>
 
                                         <div class="form-group checkbox-group">
                                             {{ edit_form.is_approved }}
-                                            <label for="{{ edit_form.is_approved.id_for_label }}">Approved</label>
+                                            <label>Approved</label>
                                         </div>
 
                                         <div class="form-actions">
@@ -104,18 +91,15 @@
                                     </form>
                                 </div>
                             {% else %}
-                                <!-- DISPLAY MODE: Show university info with edit/delete buttons -->
                                 <div class="university-info">
                                     <h3>{{ university.name }}</h3>
                                     <p class="email-domain">{{ university.email_domain }}</p>
 
-                                    <!-- Show not approved badge if university is not approved -->
                                     {% if not university.is_approved %}
                                         <span class="status-badge">Not Approved</span>
                                     {% endif %}
                                 </div>
 
-                                <!-- Action buttons container -->
                                 <div class="university-actions">
                                     <a href="?edit={{ university.id }}" class="btn-edit">Edit</a>
 

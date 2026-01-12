@@ -70,7 +70,8 @@ class SignupForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_active = False
+        # mvp
+        user.is_active = True
 
         if commit:
             user.save()
@@ -97,31 +98,31 @@ class SigninForm(AuthenticationForm):
         })
     )
 
-
-class CustomPasswordChangeForm(PasswordChangeForm):
-    old_password = forms.CharField(
-        label='Current Password',
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Enter your current password',
-            'autocomplete': 'current-password',
-            'class': 'form-control'
-        })
-    )
-
-    new_password1 = forms.CharField(
-        label='New Password',
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Enter your new password',
-            'autocomplete': 'new-password',
-            'class': 'form-control'
-        })
-    )
-
-    new_password2 = forms.CharField(
-        label='Confirm New Password',
-        widget=forms.PasswordInput(attrs={
-            'placeholder': 'Confirm your new password',
-            'autocomplete': 'new-password',
-            'class': 'form-control'
-        })
-    )
+# (disabled for MVP)
+# class CustomPasswordChangeForm(PasswordChangeForm):
+#     old_password = forms.CharField(
+#         label='Current Password',
+#         widget=forms.PasswordInput(attrs={
+#             'placeholder': 'Enter your current password',
+#             'autocomplete': 'current-password',
+#             'class': 'form-control'
+#         })
+#     )
+#
+#     new_password1 = forms.CharField(
+#         label='New Password',
+#         widget=forms.PasswordInput(attrs={
+#             'placeholder': 'Enter your new password',
+#             'autocomplete': 'new-password',
+#             'class': 'form-control'
+#         })
+#     )
+#
+#     new_password2 = forms.CharField(
+#         label='Confirm New Password',
+#         widget=forms.PasswordInput(attrs={
+#             'placeholder': 'Confirm your new password',
+#             'autocomplete': 'new-password',
+#             'class': 'form-control'
+#         })
+#     )

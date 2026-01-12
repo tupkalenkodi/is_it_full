@@ -5,6 +5,23 @@ from django.contrib import messages
 from .models import University
 from .forms import UniversityForm
 
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.shortcuts import get_object_or_404, redirect
+from .models import Space
+
+@login_required
+@require_POST
+def delete_space(request, space_id):
+    # Ensure the user belongs to the university the space is in
+    space = get_object_or_404(
+        Space,
+        id=space_id,
+        associated_university=request.user.associated_university
+    )
+    space.delete()
+    return redirect('homepage')
+
 
 class UniversityListView(generic.ListView):
     # Specifies which model to query from database

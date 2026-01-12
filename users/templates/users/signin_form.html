@@ -26,8 +26,8 @@
         </div>
 
     </form>
-
-    {% if form.errors %}
+   {% comment %} (disabled for MVP){% endcomment %}
+   {% comment %} {% if form.errors %}
         <div class="error-messages">
             {% for email_errors in form.username.errors %}
                 <li>{{ email_errors }}</li>
@@ -37,6 +37,6 @@
                 <li>{{ password_errors }}</li>
             {% endfor %}
         </div>
-    {% endif %}
+    {% endif %}{% endcomment %}
 
 {% endblock %}

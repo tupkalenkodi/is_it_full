@@ -11,6 +11,7 @@
             <p>Sign up with your university email</p>
         </div>
 
+       {% comment %} (Disabled for MVP)
         {% if form.errors %}
             <div class="error-messages">
                 <ul>
@@ -25,7 +26,7 @@
                 </ul>
             </div>
         {% endif %}
-
+{% endcomment %}
         {% for field in form %}
             <div class="center-wrapper">
                 {{ field }}
@@ -43,10 +44,11 @@
             </p>
         </div>
 
-        <div class="info-box">
+       {% comment %} (Disabled for MVP)
+       <div class="info-box">
             <h3>Why university email?</h3>
             <p>We require university email addresses to ensure our community is exclusively for students tracking campus spaces.</p>
-        </div>
+        </div>{% endcomment %}
 
     </form>
 {% endblock %}
